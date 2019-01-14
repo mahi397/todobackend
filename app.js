@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();  //set up express app
 const db = require('./db/db.js');
+const bodyparser = require('body-parser');
 
 //get all todos
 app.get('/todos', (req, res) => {
@@ -10,6 +11,10 @@ app.get('/todos', (req, res) => {
         todos: db
     });
 });
+
+//parse incoming requests' data
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended: false}));
 
 const port = 3000;
 app.listen(port, () => {
